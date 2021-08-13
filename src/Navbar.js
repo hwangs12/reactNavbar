@@ -6,14 +6,16 @@ import logo from "./logo.svg";
 const Navbar = () => {
 	const [expand, setExpand] = useState(false);
 	const linksContainer = useRef(null);
+	const linksRef = useRef(null);
 
 	const toggleOnClick = () => {
 		setExpand(!expand);
 	};
 
 	useEffect(() => {
+		const linksHeight = linksRef.current.getBoundingClientRect().height;
 		if (expand) {
-			linksContainer.current.style = "height: 200px";
+			linksContainer.current.style = `height: ${linksHeight}px`;
 			return;
 		} else {
 			linksContainer.current.style = "height: 0px";
@@ -29,7 +31,7 @@ const Navbar = () => {
 				</button>
 			</div>
 			<div className="links-container" ref={linksContainer}>
-				<ul className="links">
+				<ul className="links" ref={linksRef}>
 					{links.map((item) => {
 						const { id, url, text } = item;
 						return (
